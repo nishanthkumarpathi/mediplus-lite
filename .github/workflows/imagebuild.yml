@@ -18,4 +18,4 @@ jobs:
         docker tag mediplus-website:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/mediplus-website:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/mediplus-website:latest
         docker tag mediplus-website:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.sha }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.sha }
+        docker push ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.sha }}
