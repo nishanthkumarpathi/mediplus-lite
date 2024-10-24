@@ -22,3 +22,21 @@ jobs:
         push: true
         # tags: ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.sha }}
         tags: ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.run_number  }}
+
+  # Deploy to Ubuntu EC2 Instance, with Private Key, as a Docker Container
+  deploy:
+    runs-on: ubuntu-latest
+    needs: dockerbuild
+    steps:
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_IP }}
+        username: ubuntu
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          podman pull docker.io/${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.run_number  }}
+          podman stop mediplus-website || true
+          podman rm mediplus-website || true
+          podman run -d --name mediplus-website -p 80:80 docker.io/${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.run_number  }}
+
