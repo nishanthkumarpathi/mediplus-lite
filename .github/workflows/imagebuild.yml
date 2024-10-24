@@ -20,4 +20,5 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.sha }}
+        # tags: ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.sha }}
+        tags: ${{ secrets.DOCKER_USERNAME }}/mediplus-website:${{ github.run_number  }}
